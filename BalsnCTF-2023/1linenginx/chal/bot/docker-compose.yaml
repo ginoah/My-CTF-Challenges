@@ -1,0 +1,19 @@
+version: '3'
+services:
+  bot:
+    build:
+      context: ./bot
+    environment:
+      - TITLE=Admin Bot for 1linenginx
+      - PORT=8000
+      - URL_CHECK_REGEX=^https?://.{1,256}$$
+      - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
+      - DOMAIN=${DOMAIN}
+      - FLAG=${FLAG}
+    init: true
+    security_opt:
+      - seccomp=chrome.json
+    ports:
+      - "8000:8000"
+    restart: always
